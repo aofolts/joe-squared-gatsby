@@ -1,0 +1,21 @@
+@import 'reference.less';
+
+.archiveSection {
+  .bg(@lgrey);
+}
+
+.card {
+  .ta(center); .bg(white);
+
+  &:hover {
+    @cardHover();
+  }
+}
+
+.cardTitle {
+  .bg(@prime); .mb(0); .pad(@s); .c(white);
+}
+
+.cardMedia {
+  .pb(50%); .of(hidden);
+}

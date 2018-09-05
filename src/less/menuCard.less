@@ -1,0 +1,21 @@
+@import (reference) 'reference.less';
+
+.card {
+  .of(hidden); .cur(pointer);
+
+  &:hover {
+    @card-hover();
+  }
+}
+
+.media {
+  .pb(50%); 
+}
+
+.background {
+  .imgbg;
+}
+
+.title {
+  .c(white); .pad(@s); .bg(@prime);
+}

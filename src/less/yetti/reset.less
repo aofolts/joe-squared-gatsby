@@ -1,0 +1,93 @@
+@import (reference) 'vars.less';
+
+html {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  font-size: 10px;
+  .pad(0); .mar(0); .mt(0px ~'!important');
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,h2,h3,h4,h5,p,hr,img {.rel; .mar(0);}
+
+header, body, hr {.pad(0); .mar(0);}
+
+div,nav,blockquote {
+	box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+a {text-decoration:none; .c(inherit);}
+
+button {.ap(none); .bd(none);}
+
+ul {.lst(none);}
+ul {appearance:none;}
+
+ div,article,ul,li,a,textarea,div,section,button,
+ footer,header,input,figure {
+   .rel; .pad(0); .mar(0); box-sizing: border-box; .ff(inherit);
+ }
+
+ section {.of(hidden);}
+
+ q {display:block;}
+
+ div,ul {&::-webkit-scrollbar {.w(0);}}
+
+a:active,
+a:hover {
+  outline: 0;
+}
+
+////////////////////////////////////////////////////////
+// LINKS (lnk)
+////////////////////////////////////////////////////////
+
+a[href=''] {
+  .cur(default);
+}
+
+/////////////////////////////////////////////////////////////////////
+// MEDIA (mdi)
+/////////////////////////////////////////////////////////////////////
+
+iframe {
+  .bd(0);
+}
+
+/////////////////////////////////////////////////////////////////////
+// SELECT (slc)
+/////////////////////////////////////////////////////////////////////
+
+select {
+  -webkit-appearance: none;
+  -webkit-border-radius: 0px;
+}
+
+/////////////////////////////////////////////////////////////////////
+// INPUT (npt)
+/////////////////////////////////////////////////////////////////////
+
+input,textarea {
+  .ff(inherit); .c(inherit); .w;
+  &::placeholder {.o(.75); .c(inherit);}
+  &:focus {
+    &::placeholder {.o(.4);}
+  }
+}
+
+textarea {
+  resize: vertical;
+}
+
+[contenteditable]:focus,summary:focus {
+  outline: 0px solid transparent;
+}
+
+/////////////////////////////////////////////////////////////////////
+// SUMMARY (smm)
+/////////////////////////////////////////////////////////////////////
+
+summary {.cur(pointer);}

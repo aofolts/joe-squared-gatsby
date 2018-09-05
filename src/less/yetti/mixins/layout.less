@@ -1,0 +1,6 @@
+.wrap(
+  @width: @main
+  ) {
+  .w(calc(@width ~'+ (var(--h) * 2)')); 
+  .mw; .pad(var(--v) var(--h)); .mar(0 auto);
+}

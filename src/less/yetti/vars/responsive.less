@@ -1,0 +1,22 @@
+/////////////////////////////////////////////////////////////////////
+// SCREENS (scn)
+/////////////////////////////////////////////////////////////////////
+
+@phone-max: 480px;
+@tablet-min: 481px;
+@tablet-max: 767px;
+@laptop-min: 768px;
+@laptop-max: 1280px;
+@desktop-min: 1281px;
+
+
+@phone:  ~'screen and (max-width: @{phone-max})';
+@tablet:  ~'screen and (min-width: @{tablet-min}) and (max-width: @{tablet-max})';
+@laptop:  ~'screen and (min-width: @{laptop-min}) and (max-width: @{laptop-max})';
+@desktop: ~'screen and (min-width: @{desktop-min})';
+
+@min-laptop: ~'screen and (min-width:@{laptop-min})';
+@min-tablet: ~'screen and (min-width:@{tablet-min})';
+@max-tablet: ~'screen and (max-width:@{tablet-max})';
+@max-laptop: ~'screen and (max-width:@{laptop-max})';
+@min-desktop : ~'screen and (min-width:@{desktop-min})';

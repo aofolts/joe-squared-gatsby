@@ -1,0 +1,35 @@
+@import (reference) 'vars.less';
+
+.nav {
+  --navHeight: 12rem;
+}
+
+.primaryItem {
+  .h(var(--navHeight)); .flx; .aic;
+
+  &+.primaryItem {
+    .ml(2em);
+  }
+
+  &:hover {
+    .subMenu {
+      .dsp(block);
+    }
+  }
+}
+
+.subMenuIcon {
+  &:after {
+    .cnt; .wh(5px); .bg(var(--color)); .ml(.25em); .ib; .br; .va(middle);
+  }
+}
+
+.subMenu {
+  .abs; .t(100%); .l(50%); .trf(translateX(-50%));
+  .bg(@prime); .c(white); .w(25rem);
+  .bxs(0,0,@s,0,rgba(0,0,0,.2));
+}
+
+.secondaryItem {
+  .fs(@p3); .pad(.5em 1em);
+}

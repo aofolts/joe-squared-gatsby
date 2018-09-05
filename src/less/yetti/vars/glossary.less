@@ -1,0 +1,236 @@
+/////////////////////////////////////////////////////////////////////
+// ANIMATIONS (anm)
+/////////////////////////////////////////////////////////////////////
+
+.trn (@1,@2:nil,@3:~'',@4:~'',@5:~'') {
+  & when (@2 = nil) {transition: @1;}
+  & when not (@2 = nil) {transition: @1, @2;}
+}
+.ad  (@ad)  {animation-delay:@ad;}
+.an  (@anm) {animation: @anm;}
+
+
+@cub   : cubic-bezier(.9,.3,.2,.8);
+@cub-2 : cubic-bezier(.27,.01,.1,1);
+@eio   : ease-in-out;
+@eo    : ease-out;
+@ei    : ease-in;
+
+/////////////////////////////////////////////////////////////////////
+// BACKGROUND (bck)
+/////////////////////////////////////////////////////////////////////
+
+.bg  (@bg)  { background: @bg; }
+.bc  (@c)   { background-color: @c; }
+.bgs (@bgs) { background-size: @bgs; }
+.bgp (@bp)  { background-position: @bp; }
+.bgi (@bgi) { background-image: url(@bgi); }
+.bgr (@bgr) { background-repeat: @bgr; }
+
+.lg (@deg:90,@1,@2,@3:nil) {
+  & when (@3 = nil) {background:linear-gradient(@deg,@1,@2);}
+  & when not (@3 = nil) {background:linear-gradient(@deg,@1,@2,@3);}
+}
+
+.flt (@flt) {filter: @flt;}
+
+/////////////////////////////////////////////////////////////////////
+// COLORS (clr)
+/////////////////////////////////////////////////////////////////////
+
+.c (@c:transparent) { color:@c; }
+
+/////////////////////////////////////////////////////////////////////
+// COLUMNS (clm)
+/////////////////////////////////////////////////////////////////////
+
+.cc (@val) { column-count: @val; }
+.cg (@val) { column-gap: @val; }
+
+/////////////////////////////////////////////////////////////////////
+// CURSOR (crs)
+/////////////////////////////////////////////////////////////////////
+
+.cur (@cur:pointer) {cursor:@cur;}
+.pe (@pe:none) {pointer-events:@pe;}
+
+/////////////////////////////////////////////////////////////////////
+// FONTS (fnt)
+/////////////////////////////////////////////////////////////////////
+
+.ff   (@ff) {font-family:@ff;}
+.fs   (@font-size:0) {font-size:@font-size;}
+.fst  (@fst:italic) {font-style: @fst;}
+.fw   (@fw:normal) {font-weight:@fw;}
+.lh   (@line-height:100%) {line-height:@line-height;}
+.ls   (@ls:0) {letter-spacing:@ls;}
+.ttf  (@trans:uppercase) {text-transform:@trans;} @upr: uppercase;
+.ts   (@ts) {text-shadow: @ts;}
+.ws   (@ws) {word-spacing:@ws;}
+.txd  (@txd) {text-decoration:@txd;}
+.txdc (@txdc) {text-decoration-color: @txdc;}
+.ta   (@ta:center) {text-align:@ta;}
+
+.uc    () {text-transform: uppercase;}
+.upper () {text-transform: uppercase;}
+
+/////////////////////////////////////////////////////////////////////
+// GRID (grd)
+/////////////////////////////////////////////////////////////////////
+
+.gar (@val) {grid-auto-rows: @val;}
+.gtc (@val) {grid-template-columns: @val;}
+.gg  (@val) {.gap(@val);} // Deprecated
+.gap (@val) {gap: @val;}
+.rg  (@val) {row-gap: @val;}
+
+/////////////////////////////////////////////////////////////////////
+// IMAGES (img)
+/////////////////////////////////////////////////////////////////////
+
+.obf (@obf:cover)  {object-fit:@obf;}
+.obp (@obp:center) {object-position: @obp;}
+.flt (@flt: ~'grayscale(100%)') {filter: @flt;}
+
+/////////////////////////////////////////////////////////////////////
+// DISPLAY (dsp)
+/////////////////////////////////////////////////////////////////////
+
+.block () {display: block;}
+.ib    () {display:inline-block;}
+.dsp   (@dsp:block) {display:@dsp;}
+.ap    (@ap:none) {appearance:@ap; -webkit-appearance:@ap; -moz-appearance:@ap;}
+.whs   (@whs:nowrap) {white-space: nowrap;}
+
+/////////////////////////////////////////////////////////////////////
+// POSITION (pst)
+/////////////////////////////////////////////////////////////////////
+
+.pos  (@pos) {position: @pos;}
+
+.rel  () {position: relative;}
+.fxd  () {position: fixed;}
+.abs  () {position: absolute;}
+
+.l    (@l:0) {left: @l;}
+.r    (@r:0) {right: @r;}
+.lr   (@lr: 0) {left: @lr; right: @lr;}
+.t    (@t:0) {top: @t;}
+.b    (@b:0) {bottom: @b;}
+.lrtb () {.l; .r; .t; .b;}
+
+/////////////////////////////////////////////////////////////////////
+// SIZE (sz)
+/////////////////////////////////////////////////////////////////////
+
+.w     (@w:100%) {width: @w;}
+.mw    (@width:100%) {max-width: @width;}
+.mnw   (@mnw:100%) {min-width: @mnw;}
+.h     (@h:100%) {height: @h;}
+.mh    (@mh:100%) {max-height: @mh;}
+.mnh   (@mnh:100%) {min-height: @mnh;}
+.mwh   (@mwh:100%) {max-height: @mwh; max-width: @mwh;}
+.mnwh  (@mn:100%) {min-height: @mn; min-width: @mn;}
+.wh    (@wh:100%) {width: @wh; height: @wh;}
+
+.of    (@of:hidden) {overflow: @of;}
+.ofx   (@ofx:hidden) {overflow-x: @ofx;}
+.ofy   (@ofy:hidden) {overflow-y: @ofy; -webkit-overflow-scrolling: touch;}
+
+/////////////////////////////////////////////////////////////////////
+// BORDER (bdr)
+/////////////////////////////////////////////////////////////////////
+
+.bd   (@bd:@bd solid @dgrey) {border:@bd;}
+.bdc  (@bdc) {border-color:@bdc;}
+.bdl  (@bd:@bd solid @mgrey) {border-left:@bd;}
+.bdr  (@bd:@bd solid @mgrey) {border-right:@bd;}
+.bdb  (@bd:@bd solid @mgrey) {border-bottom:@bd;}
+.bdbc (@c) {border-bottom-color: @c;}
+.bdt  (@bd:@bd solid @mgrey) {border-top:@bd;}
+.bdw  (@bd) {border-width:@bd;}
+.bdwb (@bw) {border-bottom-width: @bw;}
+.br   (@r:50%) {border-radius:@r;}
+
+.ot   (@ot:none) {outline: @ot;}
+
+.bxs (@h,@v,@b,@s,@c,@i:~'') {box-shadow:@i @h @v @b @s @c;}
+
+/////////////////////////////////////////////////////////////////////
+// PADDING (pdn)
+/////////////////////////////////////////////////////////////////////
+
+.pad   (@p:0) {padding:@p;}
+.pt    (@pt:0) {padding-top:@pt;}
+.pb    (@p:0) {padding-bottom:@p;}
+.pl    (@pl:0) {padding-left:@pl;}
+.pr    (@pr:0) {padding-right:@pr;}
+.lrpad (@pad:4rem) {padding-left:@pad; padding-right:@pad;}
+.plr   (@pad:4rem) {padding-left:@pad; padding-right:@pad;}
+.ptb   (@pad:4rem) {padding-top:@pad; padding-bottom:@pad;}
+
+/////////////////////////////////////////////////////////////////////
+// MARGIN (mrg)
+/////////////////////////////////////////////////////////////////////
+
+.mar (@mar: 0 auto) {margin: @mar;}
+.mlr (@mar: auto)   {margin-left: auto; margin-right:auto;}
+.mtb (@mtb)         {margin-top: @mtb; margin-bottom:@mtb;}
+.ml  (@ml:0)        {margin-left: @ml;}
+.mr  (@mr)          {margin-right: @mr;}
+.mb  (@mb:0)        {margin-bottom: @mb;}
+.mt  (@mt:0)        {margin-top: @mt;}
+
+
+/////////////////////////////////////////////////////////////////////
+// FLEX (flx)
+/////////////////////////////////////////////////////////////////////
+
+.ai   (@ai:flex-start) {align-items:@ai;}
+.as   (@as) {align-self: @as;}
+.or   (@or:-1) {order:@or;}
+.flxg (@flxg: 1) {flex-grow: @flxg;}
+.flxs (@flxs: 0) {flex-shrink: @flxs;}
+.flxd (@flxd: column) {flex-direction: @flxd;}
+
+/////////////////////////////////////////////////////////////////////
+// DISPLAY (dsp)
+/////////////////////////////////////////////////////////////////////
+
+.flx   ()    {display:flex;}
+.iflex ()    {display:inline-flex;}
+.jcsb  ()    {justify-content:space-between;}
+.jc    (@jc) {justify-content:@jc;}
+.aic   ()    {align-items:center;}
+.blk   ()    {display:block;}
+.hide  ()    {display:none;}
+.ib    ()    {display:inline-block;}
+
+/////////////////////////////////////////////////////////////////////
+// APPEARANCE (ppr)
+/////////////////////////////////////////////////////////////////////
+
+.z   (@z)          {z-index:@z;}
+.o   (@o:1)        {opacity:@o;}
+.vis (@vis:hidden) {visibility:@vis;}
+.ofh ()            {overflow:hidden;}
+.cnt (@cnt:'')     {content: @cnt;}
+.va  (@pos:top)    {vertical-align:@pos;}
+.lst (@lst:none)   {list-style-type: @lst;}
+
+/////////////////////////////////////////////////////////////////////
+// TABLE (tbl)
+/////////////////////////////////////////////////////////////////////
+
+.bdclp (@collapse) {border-collapse: @collapse;}
+
+/////////////////////////////////////////////////////////////////////
+// TRANSFORM (trf)
+/////////////////////////////////////////////////////////////////////
+
+.to    (@to:50% 50%)     {transform-origin:@to;}
+.tltr  (@tl: -50%, -50%) {transform:translate(@tl);}
+.trans (@trans)          {transform:@transf;}
+.trf   (@trf)            {transform:@trf;}
+.tlx   (@t:50%)          {transform:translateX(-@t); .l(@t);}
+.tftl  (@x:-50%,@y:@x)   {transform:translate(@x,@y);}

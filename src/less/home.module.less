@@ -1,0 +1,108 @@
+@import (reference) 'vars.less';
+@import (reference) 'yetti/mixins.less';
+
+////////////////////////////////////////////////////////
+// INTRO SECTION
+////////////////////////////////////////////////////////
+
+.introSection {
+  .z(10);
+}
+
+////////////////////////////////////////////////////////
+// FEATURED TABS SECTION
+////////////////////////////////////////////////////////
+
+.featuredTabsSection {
+  .mt(calc(var(--v) ~'*' -1.5)); .z(1);
+}
+
+////////////////////////////////////////////////////////
+// VIDEO SECTION
+////////////////////////////////////////////////////////
+
+.videoSection {
+  .mt(calc(var(--v) ~'*' -1.5)); .bg(@prime);
+
+  &:before {
+    .cnt; .abs; .t(-1px); .l; .wh; .bg(white); .pe(none);
+    clip-path: polygon(0 0,100% 0,100% 66%,0 33%);
+  }
+}
+
+.videoContainer { 
+  .w; .pb(54%); .bg(@prime); .bd(@s solid @prime); .bdb(none);
+
+  @media @phone {
+    .bdw(@xs);
+  }
+}
+
+.videoContainerr { 
+  .w; .pb(54%); .bg(@prime); .bd(@s solid @prime); .bdb(none);
+
+  @media @phone {
+    .bdw(@xs);
+  }
+}
+
+.video {
+  .imgbg; 
+}
+
+////////////////////////////////////////////////////////
+// MENUS SECTION
+////////////////////////////////////////////////////////
+
+.thirdsGrid {
+  .grid(@cols:3);
+
+  .background {
+    .media-bg;
+  }
+}
+
+.menusSection {
+  .mt(calc(var(--v) ~'*' -1));
+}
+
+.menusContainer {
+  .mt(calc(var(--v) ~'*' -2));
+} 
+
+.menusContent {
+  .bg(@prime); .c(white); .ta(center);
+}
+
+.menusCopy {
+  .o(.9);
+}
+
+.menusList {
+  .mt(@m);
+  .dsp(grid);
+  .gg(@s); .gtc(repeat(auto-fill,minmax(25rem,1fr)));
+}
+
+.menuCard {
+  .ib; 
+  .fs(@p); .fw(500);
+  .pad(@m @s);
+  .bd(@bd solid darken(@prime,10%)); .cur(pointer);
+
+  &:hover {
+    .bdc(darken(@prime,20%));
+  }
+}
+
+////////////////////////////////////////////////////////
+// COMMUNITY SECTION
+////////////////////////////////////////////////////////
+
+.communitySection {
+  .bg(@lgrey); .ta(center); 
+}
+
+.communityCopy p {
+  .mb(0);
+}

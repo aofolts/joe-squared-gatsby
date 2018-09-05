@@ -1,0 +1,25 @@
+
+
+html {
+  .lh(@line-height);
+  .ff(@font-family);
+  .c(@color);
+}
+
+////////////////////////////////////////////////////////
+// HEADINGS (hds)
+////////////////////////////////////////////////////////
+
+:root {
+  --h1: @h1;
+
+  @media @phone {
+    --h1: calc(@h2 * 1.5);
+  }
+}
+
+h1,h2,h3,h4,h5 {
+  .ff(@heading-font-family);
+  .fw(@heading-font-weight);
+  .lh(@heading-line-height);
+}

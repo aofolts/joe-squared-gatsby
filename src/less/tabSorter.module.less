@@ -1,0 +1,26 @@
+@import 'vars.less';
+@import 'mixins.less';
+
+.sorter {
+  .ta(center);
+}
+
+.nav {
+  .bdb(2px solid rgba(0,0,0,.1)); .ib;
+}
+
+.navItem {
+  .ib; .fs(@p2); .fw(500); .pad(calc(@ms ~'/' 2)); .cur;
+}
+
+.selectedNavItem {
+  .bdb(2px solid @prime);
+}
+
+.item {
+  .hide; .mt(@m); .fs(@p); .lh(@line-height);
+}
+
+.selectedItem {
+  .dsp(block);
+}

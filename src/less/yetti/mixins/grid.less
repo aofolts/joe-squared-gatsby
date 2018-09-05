@@ -1,0 +1,34 @@
+@fallback: false;
+
+.grid(
+  @gap: @m,
+  @sizing: auto-fill,
+  @min: default,
+  @max: 40rem,
+  @cols: 3
+  ) {
+
+  // Flex Fallback
+  .fallback() {
+    .dsp(flex);  flex-wrap:wrap; .w; .jc(center);
+    > div,a {.w(@min); .mw(@main / (@cols * 1.1)); flex-grow:1; .mar(calc(var(--hpad) ~'/' 2));}
+  }
+  @supports not (display: grid) {
+    .fallback();
+  }
+  & when (@fallback = true) {
+    .fallback();
+  }
+
+  // CSS Grid
+  & when (@fallback = false) {
+    .dsp(grid);
+    & when (@min = default) {.gtc(repeat(@sizing,minmax(@main/(@cols + 1),1fr)));}
+    & when not (@min = default) {.gtc(repeat(@sizing,minmax(@min,1fr)));}
+    .gg(@gap);
+    @media @phone {
+      & when (@min > 15rem), (@min = default) {.gtc(1fr);}
+    }
+  }
+
+}

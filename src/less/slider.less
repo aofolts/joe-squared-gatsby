@@ -1,0 +1,103 @@
+@import 'vars.less';
+@import 'mixins.less';
+
+.slider {
+  .h(70rem); .mh(100vh); .w; .of(hidden);
+}
+
+.slide {
+  .abs; .t; .l; .wh; .dsp(flex); .aic; .jc(center); .c(white);
+}
+
+.slideHeadline {
+  .fs(var(--h1)); .ttf(uppercase); .mb(@s); .fw(700);
+}
+
+.slideBackground {
+  .abs; .wh; .obf(cover); .l; .t; .flt(brightness(.55));
+}
+
+.slide {
+  .abs; .wh; .trn(clip-path .5s ease-in-out); .bg(@grey-dark);
+}
+
+.inactiveSlide {
+  .z(1);
+  // Revealed
+  clip-path: polygon(0 0,100% 0,100% 100%,0 100%);
+}
+
+.currentSlide {
+  .z(2);
+  // Revealed
+  clip-path: polygon(0 0,100% 0,100% 100%,0 100%);
+}
+
+.previousSlide {
+  .z(3);
+  // Hide, to right
+  clip-path: polygon(100% 0,100% 0,100% 100%,100% 100%);
+}
+
+.slideContent {
+  .w(120rem); .mw; .pad(var(--h));
+  @media @min-tablet {
+    .pr(20rem);
+  }
+}
+
+.buttons {
+  @media @phone {
+    .dsp(flex); .flxd(column); .ta(center);
+  }
+}
+
+.button1 {
+  @media @min-tablet {
+    .mr(@s);
+  }
+  @media @phone {
+    .mb(@s);
+  }
+}
+
+.nav {
+  .abs; .z(3); .mw; .dsp(flex);
+
+  @media @min-tablet {
+    .r(calc(50% ~'-' 60rem)); .flxd(column); .pr(var(--h)); .h; .jc(center);
+  }
+
+  @media @phone {
+    .b; .jc(center); .aic; .w; .pad(@s);
+  }
+}
+
+.navItem {
+  .dsp(flex); --size: @s; .cur(pointer);
+
+  @media @min-tablet {
+    .flxd(row-reverse); .aic;
+
+    &:hover {
+      .navItemTitle {.dsp(block);}
+    }
+  }
+}
+
+.navItemTitle {
+  .hide; .fs(@p2); .c(white); .fw(500); .lh(100%);
+}
+
+.navItemIcon {
+  .wh(@s); .bd(2px solid white); .br; .mar(@xs); 
+  .bg(transparent); .trn(background .2s ease-in-out);
+
+  @media @phone {
+    .wh(@xs); .mar(@xxs);
+  }
+}
+
+.currentNavItemIcon {
+  .bg(white);
+}
