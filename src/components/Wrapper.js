@@ -16,7 +16,6 @@ const Wrapper = Child => (
       // Post Url
       let postUrl = `${config.api.wpRestUrl}/${apiRoute}/`
       if (slug) {postUrl += `?slug=${slug}`}
-      console.log(postUrl)
 
       // Post Data
       const postRes = await fetch(postUrl),

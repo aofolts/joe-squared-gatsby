@@ -64,7 +64,7 @@ const FooterBar = props => {
     } = social[name]
 
     return (
-      <a key={name} className={css.socialLink} href={url} target='_blank'>
+      <a key={name} className={css.socialLink} href={url} target='_blank' rel='noopener noreferrer'>
         <img 
           className={css.socialIcon}
           alt={`${name} icon`} 
@@ -79,7 +79,7 @@ const FooterBar = props => {
     <div id='footerBar' className={css.bar}>
       <div id='copyright' className={css.barItem}>©2018 Joe Squared</div>
         <div id='credit' className={css.barItem}>
-          Site by <a href='http://sherpadesign.co' target='__blank' className={css.creditLink}>Sherpa Design Co.</a>
+          Site by <a href='http://sherpadesign.co' target='__blank' rel='noopener noreferrer' className={css.creditLink}>Sherpa Design Co.</a>
         </div>
         <div className={[css.barItem,css.social].join(' ')}>
           {icons}

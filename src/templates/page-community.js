@@ -3,7 +3,7 @@ import React from 'react'
 import Wrap from '../components/Wrap'
 import Layout from '../components/Layout'
 import Hero from '../components/Hero'
-import css from '../less/page-food.module.less'
+import css from '../less/archive-blog.module.less'
 import Image from 'gatsby-image'
 import {Link} from 'gatsby'
 import Content from '../components/Content'
@@ -18,18 +18,22 @@ const BasicContent = props => {
   )
 }
 
-const CategoriesSection = props => {
-  const itemCards = props.items.map(cat => {
+const ArchiveSection = props => {
+  const cards = props.posts.map(post => {
     const {
       id,
-      name,
+      title,
       featuredImage,
-      slug
-    } = cat
+      slug,
+      body,
+      category
+    } = post
+
+    const excerpt = body.childMarkdownRemark.excerpt
 
     return (
-      <li key={id} className={css.card}>
-        <Link to={`/food/${slug}`}>
+      <article key={id} className={css.card}>
+        <Link to={`/community/${slug}`}>
           <div className={css.cardMedia}>
             <Image 
               outerWrapperClassName='mediaBackground' 
@@ -37,31 +41,39 @@ const CategoriesSection = props => {
               sizes={featuredImage.sizes}
             />
           </div>
-          <h3 className={css.cardTitle}>{name}</h3>
+          <div className={css.cardContent}>
+            <div className={css.cardCategory}>
+              {category.name}
+            </div>
+            <h3 className={css.cardTitle}>{title}</h3>
+            <div className={css.cardExcerpt}>
+              {excerpt}
+            </div>
+          </div>
         </Link>
-      </li>
+      </article>
     )
   })
 
   return (
     <section className={css.archiveSection}>
       <Wrap width='small'>
-        {itemCards}
+        {cards}
       </Wrap>
     </section>
   )
 }
 
-class PageTemplate extends React.Component {
+class CommunityPageTemplate extends React.Component {
   
   render() {
     const {
       contentfulPage,
-      allContentfulFoodCategory
+      allContentfulBlogPost
     } = this.props.data
 
-    const foodCategories = allContentfulFoodCategory.edges.map(cat => {
-      return cat.node
+    const posts = allContentfulBlogPost.edges.map(post => {
+      return post.node
     })
 
     const {
@@ -74,41 +86,47 @@ class PageTemplate extends React.Component {
       <Layout {...this.props}>
         <Hero title={title} background={featuredImage} />
         <BasicContent layout={layout}/>
-        <CategoriesSection items={foodCategories}/>
+        <ArchiveSection posts={posts}/>
       </Layout>
     )
   }
 }
 
-export default PageTemplate
+export default CommunityPageTemplate
 
 export const pageQuery = graphql`
-  query foodPageQuery($slug: String!) {
-    contentfulPage(slug: { eq: $slug }) {
+  {
+    contentfulPage(slug: {eq: "community"}) {
       ...pageFields
       layout {
         ...markdown
       }
     }
-    allContentfulFoodCategory {
+    allContentfulBlogPost(limit:9) {
       edges {
         node {
-          name
           id
+          title
           slug
-          description {
-            childMarkdownRemark {
-              html
-            }
-          }
           featuredImage {
             title
             sizes(maxWidth: 1920) {
               ...GatsbyContentfulSizes
             }
           }
+          body {
+            childMarkdownRemark {
+              excerpt
+            }
+          }
+          category {
+            name
+            slug
+          }
         }
       }
     }
   }
 `
+
+

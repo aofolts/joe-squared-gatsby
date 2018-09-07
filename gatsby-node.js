@@ -5,8 +5,9 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
 
   const createPages = new Promise((resolve, reject) => {
     const pageTemplate = path.resolve('./src/templates/template-page.js')
-    const homePageTemplate = path.resolve('./src/pages/index.js')
+    const homePageTemplate = path.resolve('./src/templates/page-home.js')
     const foodPageTemplate = path.resolve('./src/templates/template-page-food.js')
+    const communityPageTemplate = path.resolve('./src/templates/page-community.js')
 
     resolve(
       graphql(
@@ -35,11 +36,14 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
 
           switch (post.node.slug) {
             case 'home': 
-              component = pageTemplate;
+              component = homePageTemplate;
               slug      = '/';
               break;
             case 'food':
               component = foodPageTemplate;
+              break;
+            case 'community':
+              component = communityPageTemplate;
               break;
             default:
               component = pageTemplate;
@@ -87,6 +91,45 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
           createPage({
             path: `/food/${post.node.slug}`,
             component: foodArchiveTemplate,
+            context: {
+              slug
+            }
+          })
+        })
+      })
+    )
+  })
+
+  const blogPosts = new Promise((resolve, reject) => {
+    const blogPostTemplate = path.resolve('./src/templates/blogPost.js')
+
+    resolve(
+      graphql(
+        `
+          {
+            allContentfulBlogPost {
+              edges {
+                node {
+                  slug
+                }
+              }
+            }
+          }
+        `
+      ).then(result => {
+        if (result.errors) {
+          console.log(result.errors)
+          reject(result.errors)
+        }
+
+        const posts = result.data.allContentfulBlogPost.edges
+        
+        posts.forEach(post => {
+          const {slug} = post.node
+
+          createPage({
+            path: `/community/${post.node.slug}`,
+            component: blogPostTemplate,
             context: {
               slug
             }

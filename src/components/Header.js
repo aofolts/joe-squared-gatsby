@@ -2,11 +2,12 @@ import React from 'react'
 import MainMenu from './MainMenu'
 import {Link} from 'gatsby'
 import {HeaderContext} from './HeaderContext'
-//import MobileMenu from './MobileMenu'
+import MobileMenu from './MobileMenu'
 import css from '../less/header.module.less'
 import desktopStyle from '../less/header-desktop.module.less'
 import mobileStyle from '../less/header-mobile.module.less'
 import logoSrc from '../../static/img/logo-inline.svg'
+import {StaticQuery,graphql} from 'gatsby'
 
 /**
  * HEADER
@@ -15,20 +16,12 @@ class Header extends React.Component {
 
   constructor(props) {
     super(props)
-  
-    const boundMethods = [
-      'checkIsDocked',
-      'checkIsMobile',
-      'closeMobileMenu',
-      'getHeaderClass',
-      'getMobileMenu',
-      'openMobileMenu',
-      'setActiveSubMenuById',
-      'watchScroll',
-      'watchWindow'
-    ]
-      
-    boundMethods.forEach(method => this[method] = this[method].bind(this))
+
+    this.subMenusById = {}
+
+    props.mainMenu.forEach(item => {
+      this.addItemSubMenu(item)
+    })
 
     this.state = {
       activeSubMenuId: false,
@@ -41,11 +34,7 @@ class Header extends React.Component {
     }
   }
 
-  checkIsDocked() {
-
-  }
-
-  checkIsMobile() {
+  checkIsMobile = () => {
     const width    = window.outerWidth,
           isMobile = (width < 1280) || false
 
@@ -63,7 +52,7 @@ class Header extends React.Component {
     this.watchWindow()
   }
 
-  checkIsDocked() {
+  checkIsDocked = () => {
     const docked = window.pageYOffset === 0
 
     if (docked !== this.state.isDocked) {
@@ -73,14 +62,14 @@ class Header extends React.Component {
     }
   }
 
-  closeMobileMenu() {
+  closeMobileMenu = () => {
     this.setState({
       activeSubMenuId: false,
       mobileMenuIsOpen: false
     })
   }
 
-  getHeaderClass() {
+  getHeaderClass = () => {
     if (this.state.isMobile) {
       return 'is-mobile'
     } else {
@@ -88,47 +77,58 @@ class Header extends React.Component {
     }
   }
 
-  getMobileMenu() {
+  addItemSubMenu(item) {
+    if (item.subMenu) {
+      this.subMenusById[item.id] = item.subMenu
+    }
+  }
+
+  getMobileMenu = () => {
+    const contextValue = {
+      ...this.state,
+      menuItems: this.props.mainMenu,
+      subMenusById: this.subMenusById
+    }
+
     if (this.state.isMobile) {
-      // return (
-      //   <HeaderContext.Provider value={this.state}>
-      //     <MobileMenu menu={this.props.menu} closeMobileMenu={() => this.closeMobileMenu()}/>
-      //     <div id='mobileMenuToggle' className={mobileStyle.mobileMenuToggle} onClick={this.openMobileMenu}>
-      //       <div className={mobileStyle.topBar}></div>
-      //       <div className={mobileStyle.middleBar}></div>
-      //       <div className={mobileStyle.bottomBar}></div>
-      //     </div>
-      //   </HeaderContext.Provider>
-      // )
-      return <h1>Modile</h1>
+      return (
+        <HeaderContext.Provider value={contextValue}>
+          <MobileMenu menu={this.props.menu} closeMobileMenu={() => this.closeMobileMenu()}/>
+          <div id='mobileMenuToggle' className={mobileStyle.mobileMenuToggle} onClick={this.openMobileMenu}>
+            <div className={mobileStyle.topBar}></div>
+            <div className={mobileStyle.middleBar}></div>
+            <div className={mobileStyle.bottomBar}></div>
+          </div>
+        </HeaderContext.Provider>
+      )
     } else {
       return (
-        <HeaderContext.Provider value={this.state}>
-           <MainMenu/>
+        <HeaderContext.Provider value={contextValue}>
+           <MainMenu items={this.menuItems}/>
         </HeaderContext.Provider>
       )
     }
   }
 
-  openMobileMenu() {
+  openMobileMenu = () => {
     this.setState({
       mobileMenuIsOpen: true
     })
   }
   
-  setActiveSubMenuById(id) {
+  setActiveSubMenuById = id => {
     this.setState({
       activeSubMenuId: id
     })
   }
 
-  watchScroll() {
+  watchScroll = () => {
     window.addEventListener('scroll',e => {
       this.checkIsDocked()
     })
   }
 
-  watchWindow() {
+  watchWindow = () => {
     window.addEventListener('resize',e => {
       this.checkIsMobile()
     })
@@ -149,7 +149,7 @@ class Header extends React.Component {
       <header id='header' className={headerClasses}>
         <nav id='nav' className={navClasses}>
           <Link to='/' id='site_name' className={css.siteName}>
-            <img id='siteLogo' className={css.siteLogo} src={logoSrc}/>
+            <img id='siteLogo' className={css.siteLogo} src={logoSrc} alt='Site Logo'/>
           </Link>
           {this.getMobileMenu()}
         </nav>
@@ -158,4 +158,38 @@ class Header extends React.Component {
   }
 }
 
-export default Header
+export default () => (
+  <StaticQuery
+    query={graphql`
+      {
+        contentfulOptions {
+          mainMenu {
+            id
+            name
+            page {
+              slug
+            }
+            externalLink
+            subMenu {
+              id
+              name
+              page {
+                slug
+              }
+              externalLink
+            }
+          }
+        }
+      }
+    `}
+    render={data => {
+      const {
+        mainMenu
+      } = data.contentfulOptions
+
+      return (
+        <Header mainMenu={mainMenu}/>
+      )
+    }}
+  />
+)

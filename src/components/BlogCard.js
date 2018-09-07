@@ -8,8 +8,6 @@ const BlogCard = props => {
 
   const {featuredImage,category,body} = post
 
-  console.log(post)
-
   return (
     <Link to={`/community/${post.slug}`}>
       <article key={post.id} className={css.card}>

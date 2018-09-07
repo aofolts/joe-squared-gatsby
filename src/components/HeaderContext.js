@@ -4,6 +4,7 @@ const HeaderContext = React.createContext({
   isDocked: true,
   isMobile: null,
   activeSubMenuId: false,
+  menuItems: [],
   closeMobileMenu: () => {},
   openMobileMenu: () => {},
   getActiveSubMenuId: () => {},

@@ -1,27 +1,86 @@
 import React from 'react'
 import {withHeaderContext} from './HeaderContext'
-//import MenuItem from './MenuItem'
-import css from '../less/header.module.less'
+import {Link} from 'gatsby'
+import css from '../less/menu-main-desktop.module.less'
 import mobileStyle from '../less/header-mobile.module.less'
+
+const SubMenu = ({subMenu}) => {
+  if (!subMenu) return null
+
+  const items = subMenu.map(item => {
+    const {
+      id,
+      name,
+      page,
+      externalLink
+    } = item
+
+    const url = page ? page.slug : externalLink
+    
+    const itemTitle = url
+      ? (
+        <Link className={css.secondaryItemTitle} to={url}>
+          {name}
+        </Link>
+      ) 
+      : (
+        <div className={css.secondaryItemTitle}>
+          {name}
+        </div>
+      )
+
+    return (
+      <div key={id} className={css.secondaryItem}>
+        {itemTitle}
+      </div>
+    )
+  })
+
+  return (
+    <ul className={css.subMenu}>
+      {items}
+    </ul>
+  )
+}
 
 class MainMenu extends React.Component {
 
-  constructor(props) {
-    super(props)
+  getMenuItems = () => {
+    const {
+      menuItems
+    } = this.props.headerContext
+    
+    return menuItems.map(item => {
+      const {
+        id,
+        name,
+        page,
+        externalLink,
+        subMenu
+      } = item
 
-    console.log(props)
+      const url = page ? page.slug : externalLink
+      
+      const itemTitle = url
+        ? (
+          <Link className={css.primaryItemTitle} to={url}>
+            {name}
+          </Link>
+        ) 
+        : (
+          <div className={css.primaryItemTitle}>
+            {name}
+          </div>
+        )
+
+      return (
+        <div key={id} className={css.primaryItem}>
+          {itemTitle}
+          <SubMenu subMenu={subMenu}/>
+        </div>
+      )
+    })
   }
-
-  // getMenuItems = () => {
-  //   return this.props.items.map(item => {
-  //     return (
-  //       <MenuItem 
-  //         item={item} 
-  //         key={item.ID}
-  //       />
-  //     )
-  //   })
-  // }
 
   render() {
     const {isMobile,activeSubMenuId} = this.props.headerContext
@@ -34,10 +93,10 @@ class MainMenu extends React.Component {
 
     return (
       <ul id='menu' className={classes}>
-        {/* {this.getMenuItems()} */}
+        {this.getMenuItems()}
       </ul>
     )
   }
 }
 
-export default MainMenu
+export default withHeaderContext(MainMenu)

@@ -8,15 +8,13 @@ export default class Wrap extends React.Component {
       style
     } = this.props
 
-    console.log(this.props)
-
     const wrapClasses = [
       `${this.props.width}Wrap`,
       this.props.className
     ].join(' ')
 
     return ( 
-      <div className={wrapClasses} style={this.props.style || null}>
+      <div className={wrapClasses} style={style || null}>
         {this.props.children}
       </div>
     )

@@ -1,0 +1,38 @@
+@import (reference) 'reference.less';
+
+.archiveSection {
+  //.mt(calc(var(--v) ~'*' -1))
+  .bg(@lgrey);
+}
+
+.card {
+  &:hover {
+    @cardHover();
+  }
+
+  &+.card {
+    .mt(@m);
+  }
+}
+
+.cardMedia {
+  .pb(50%);
+}
+
+.cardContent {
+  .pad(var(--h)); .bg(white);
+}
+
+.cardExcerpt {
+  .mb(0); .fs(@p); .lh(@lh);
+}
+
+.cardReadMore {
+  @textLink(); 
+}
+
+.cardCategory {
+  .fs(@p3); .fw(600); .ttf(uppercase); .c(white);
+  .abs; .t; .trf(translateY(-50%)); 
+  .bg(@prime); .pad(.5em);
+}

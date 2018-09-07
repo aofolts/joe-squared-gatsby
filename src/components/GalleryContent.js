@@ -20,6 +20,8 @@ const GalleryContent = props => {
     return (
       <div key={id} className={css.item}>
         <Image 
+          title={title}
+          alet={title}
           sizes={sizes}
           outerWrapperClassName={'mediaBackground'}
           className={css.imageWrap}

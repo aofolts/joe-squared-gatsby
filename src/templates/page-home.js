@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import {pageFields} from '../templates/template-page'
 import Content from '../components/Content'
 import Wrap from '../components/Wrap'
 import Section from '../components/Section'
-// import Slider from '../components/Slider'
+import Slider from '../components/Slider'
 import FeaturedTabs from '../components/FeaturedTabs'
 import Video from '../components/Video'
 import Layout from '../components/Layout'
@@ -39,9 +38,7 @@ const MenusSection = props => {
   const {headline,copy,menus} = props
 
   const menuItems = menus.map(menu => {
-    const {id,slug,title} = menu
-
-    console.log(id)
+    const {id,title} = menu
 
     return (
       <li className={css.menuCard} key={id}>
@@ -102,8 +99,6 @@ class Index extends Component {
     } = this.props.data
 
     const {
-      title,
-      slug,
       layout
     } = contentfulPage
 
@@ -118,11 +113,13 @@ class Index extends Component {
       intro,
       menusCopy,
       quickLinks,
-      video
+      video,
+      heroSlider: heroSlides
     } = layout[0]
 
     return (
-      <Layout>
+      <Layout {...contentfulPage}>
+        <Slider slides={heroSlides}/>
         <IntroSection {...intro} tabs={quickLinks}/>
         <VideoSection {...video}/>
         <MenusSection {...menusCopy} menus={featuredMenus}/>
@@ -135,8 +132,8 @@ class Index extends Component {
 export default Index;
 
 export const pageQuery = graphql`
-  query HomePageBySlug($slug: String = "home") {
-    contentfulPage(slug: { eq: $slug }) {
+  {
+    contentfulPage(slug: {eq: "home"}) {
       ...pageFields
       layout {
         ...homePageFields
@@ -215,6 +212,25 @@ export const homePageFields = graphql`
         title
         sizes {
           srcSet
+        }
+      }
+    }
+    heroSlider {
+      id
+      name
+      headline 
+      buttons {
+        name
+        label
+        externalLink
+        pageLink {
+          slug
+        }
+      }
+      image {
+        title
+        sizes(maxWidth: 400) {
+          ...GatsbyContentfulSizes
         }
       }
     }

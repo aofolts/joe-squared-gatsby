@@ -1,0 +1,25 @@
+@import (reference) 'reference.less';
+
+.container {
+  .h(75%); .w;
+  .dsp(flex); .aic;
+  .fs(3rem);
+}
+
+.mainMenu {
+  .w;
+}
+
+.menuItem {
+  .w; .pad(@s @s * 1.5); .fw(500); .fs(3rem);
+  .dsp(flex); .aic; .jcsb;
+
+  &:hover {
+    .bg(darken(@prime,5%));
+  }
+}
+
+.subMenuToggle {
+  .wh(.6em); .bd(white solid); .bdw(@bd @bd 0 0);
+  .trf(rotate(45deg));
+}

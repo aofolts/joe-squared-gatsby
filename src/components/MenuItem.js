@@ -1,10 +1,9 @@
 import React from 'react'
 import {Link} from 'gatsby'
 import {withHeaderContext} from '../parts/HeaderContext'
-import { config } from "../config";
-import css from '.../less/less/header.less'
-import desktopStyle from '.../less/less/header-desktop.less'
-import mobileStyle from '.../less/less/header-mobile.less'
+import css from '../less/header.less'
+import desktopStyle from '../less/header-desktop.less'
+import mobileStyle from '../less/header-mobile.less'
 
 class MenuItem extends React.Component {
 
@@ -22,7 +21,7 @@ class MenuItem extends React.Component {
     this.subMenu = props.item.sub_menu || []
   }
 
-  componentWillReceiveProps(props) {
+  componentDidMount(props) {
     this.setState({
       subMenuIsOpen: props.subMenuIsOpen,
       activeSubMenuId: props.activeSubMenuId

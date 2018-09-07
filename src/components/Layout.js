@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
 import Header from './Header'
 import Footer from './Footer'
+import {Helmet} from 'react-helmet'
 
 import '../less/global.less'
 
 class Layout extends Component {
 
   componentDidMount() {
+    // Embedly
     (function(w, d){
       var id='embedly-platform', n = 'script';
       if (!d.getElementById(id)){
@@ -20,9 +22,17 @@ class Layout extends Component {
   }
 
   render() {
+    const {
+      title
+    } = this.props
+
     return (
       <div id='layout'>
-        {/* <Header menu={this.props.menu} /> */}
+      <Helmet>
+        <meta charSet="utf-8" />
+         <title>Joe Squared | {title ? title : 'Home'}</title>
+      </Helmet>
+        <Header menu={this.props.menu} />
           {this.props.children}
         <Footer />
       </div>

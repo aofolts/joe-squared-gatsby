@@ -7,8 +7,6 @@ import css from '../less/archive-foodCategory.module.less'
 import {Link} from 'gatsby'
 import Section from '../components/Section'
 
-import Content from '../components/Content'
-
 const Intro = props => {
   const {
     category,
@@ -18,12 +16,9 @@ const Intro = props => {
   } = props
 
   const {
-    id,
     name,
     description
   } = category
-
-  console.log(activeSubCategory)
 
   const categoryDescription = description
     ? (
@@ -62,7 +57,7 @@ const SubCategoriesNav = props => {
     items
   } = props
 
-  const menuItems = props.items.map(item => {
+  const menuItems = items.map(item => {
     const {name,id} = item
 
     const itemClasses = [
@@ -99,7 +94,6 @@ const MenuItemsSection = props => {
       name,
       id,
       pricing,
-      diet,
       subCategory,
       description
     } = item
@@ -158,8 +152,6 @@ class FoodCategoryTemplate extends React.Component {
     super(props)
 
     const {
-      contentfulFoodCategory: category,
-      allContentfulFoodItem: itemEdges,
       allContentfulFoodSubCategory: subCategoryEdges
     } = this.props.data
 

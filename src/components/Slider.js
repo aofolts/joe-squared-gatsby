@@ -1,109 +1,11 @@
-import Button from './Button'
-import WpImage  from '../parts/WpImage' 
-import css from '.../less/less/slider.less'
-import {config} from '../config' 
-
-class Slide extends React.Component {
-
-  constructor(props) {
-    super(props)
-
-    this.state = { 
-      slideState: props.slideState
-    }
-  } 
-
-  componentWillReceiveProps(props) {
-    this.setState({
-      slideState: props.slideState
-    })
-  }
-
-  render() {
-    const slide    = this.props.slide,
-          image    = slide.featuredImage
-
-    const imageEl = (
-      <WpImage 
-        className={css.slideBackground} 
-        data={image} size='hero' 
-        loadType='auto' 
-      />
-    )
-
-    const slideClasses = [
-      css.slide,
-      css[`${this.state.slideState}Slide`],
-      this.state.slideState
-    ].join(' ')
-
-    return (
-      <div className={slideClasses} key={slide.id} title={slide.post_title.rendered}>
-        {imageEl}
-        <div className={css.slideContent}>
-          <h2 className={css.slideHeadline}>{slide.acf.headline}</h2>
-          <Buttons link='test' fields={slide.acf} />
-        </div>
-      </div>
-    )
-  }
-
-}
-
-const Buttons = (props) => {
-  const buttons = [props.fields.button]
-
-  if ('secondary_button' in props.fields) {
-    buttons.push(props.fields.secondary_button)
-  }
-
-  return (
-    <div className='buttons'>
-      {buttons.map((button,i) => {
-        const buttonClasses = [
-          css[`button${i + 1}`],
-          'primaryButton'
-        ].join(' ')
-
-        // let link = button[button.link_type]
-
-        // console.log(link)
-
-        // if (typeof link === 'object') {
-        //   console.log(link)
-        // }
-
-        return (
-          <Button 
-            key={i}
-            label={button.label} 
-            className={buttonClasses} 
-            link='test' 
-          />
-        )
-      })}
-    </div>
-  )
-}
+import css from '../less/slider.module.less'
+import Slide from './Slide'
+import React from 'react'
 
 export default class Slider extends React.Component {
 
   constructor(props) {
     super(props)
-
-    const boundMethods = [
-      'advanceSlider',
-      'getNextSlideById',
-      'getPreviousSlideById',
-      'getSlideById',
-      'getSlideByIndex',
-      'getSlideElements',
-      'getSlideStateById',
-      'selectSlideById',
-      'startLoop'
-    ]
-
-    boundMethods.forEach(method => this[method] = this[method].bind(this))
 
     const slidesById = this.props.slides.reduce((obj,slide,i) => {
       slide.index   = i
@@ -123,7 +25,7 @@ export default class Slider extends React.Component {
     }
   }
 
-  advanceSlider() {
+  advanceSlider = () => {
     const newCurrent = this.state.nextSlide
 
     this.setState({
@@ -133,7 +35,7 @@ export default class Slider extends React.Component {
     })
   }
 
-  getNextSlideById(id) {
+  getNextSlideById = id => {
     let i = this.state.slidesById[id].index + 1
 
     if (i >= this.state.slideCount) {
@@ -143,7 +45,7 @@ export default class Slider extends React.Component {
     return this.getSlideByIndex(i)
   }
 
-  getPreviousSlideById(id) {
+  getPreviousSlideById = id => {
     let i = this.state.slidesById[id].index - 1
 
     if (i < 0) {
@@ -153,11 +55,11 @@ export default class Slider extends React.Component {
     return this.getSlideByIndex(i)
   }
 
-  getSlideById(id) {
+  getSlideById = id => {
     return this.state.slidesById[id]
   }
 
-  getSlideByIndex(i) {
+  getSlideByIndex = i => {
     const id = this.props.slides[i].id
     return this.state.slidesById[id]
   }
@@ -171,11 +73,15 @@ export default class Slider extends React.Component {
   }
   
 
-  getSlideElements() {
-    const self = this
+  getSlideElements = () => {
+    return this.props.slides.map(slide => {
+      const slideState = this.getSlideStateById(slide.id)
 
-    return self.props.slides.map(slide => {
-      const slideState = self.getSlideStateById(slide.id)
+      const {
+        id
+      } = slide
+
+      console.log(id)
 
       return (
         <Slide slide={slide} key={slide.id} slideState={slideState} />
@@ -183,7 +89,7 @@ export default class Slider extends React.Component {
     })
   }
 
-  getSlideNav() {
+  getSlideNav = () => {
     return (
       <nav className={css.nav}>
         {this.props.slides.map(slide => {
@@ -196,9 +102,9 @@ export default class Slider extends React.Component {
           ].join(' ')
 
           return (
-            <div key={slide.id} className={css.navItem} onClick={() => this.selectSlideById(slide.id)} title={slide.post_title.rendered}>
+            <div key={slide.id} className={css.navItem} onClick={() => this.selectSlideById(slide.id)}>
               <div className={iconClasses}></div>
-              <div className={css.navItemTitle}>{slide.post_title.rendered}</div>
+              <div className={css.navItemTitle}>{slide.title}</div>
             </div>
           )
         })}
@@ -206,7 +112,7 @@ export default class Slider extends React.Component {
     )
   }
 
-  getSlideStateById(id) {
+  getSlideStateById = id => {
     switch (id) {
       case this.state.previousSlide.id: return 'previous';
       case this.state.currentSlide.id: return 'current';
@@ -214,7 +120,7 @@ export default class Slider extends React.Component {
     }
   }
 
-  selectSlideById(id) {
+  selectSlideById = id => {
     this.stopLoop()
 
     this.setState({
@@ -224,7 +130,7 @@ export default class Slider extends React.Component {
     })
   }
 
-  startLoop() {
+  startLoop = () => {
     this.advanceSlider()
 
     this.timer = setInterval(() => {
@@ -232,7 +138,7 @@ export default class Slider extends React.Component {
     },4000);
   }
 
-  stopLoop() {
+  stopLoop = () => {
     clearTimeout(this.timer)
   }
 

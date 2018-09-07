@@ -25,8 +25,8 @@ const LayoutContent = props => {
   } = layout
 
   switch (layoutType) {
-    case 'ContentfulLayoutGallery': return <GalleryContent layout={layout}/>; break;
-    case 'ContentfulMarkdown':      return <MarkdownLayout layout={layout}/>; break;
+    case 'ContentfulLayoutGallery': return <GalleryContent layout={layout}/>;
+    case 'ContentfulMarkdown':      return <MarkdownLayout layout={layout}/>;
     default: return <h2>No Layout</h2>
   }
 }
@@ -40,7 +40,6 @@ class PageTemplate extends React.Component {
 
     const {
       title,
-      slug,
       layout,
       featuredImage
     } = contentfulPage

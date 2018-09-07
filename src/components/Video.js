@@ -23,8 +23,9 @@ export default class Video extends React.Component {
     const {key,host} = this.video
 
     switch (host) {
-      case 'youtube': return `https://www.youtube.com/embed/${key}`; break;
-      case 'vimeo':   return `https://player.vimeo.com/video/${key}?title=0&byline=0&portrait=0`; break;
+      case 'youtube': return `https://www.youtube.com/embed/${key}`;
+      case 'vimeo':   return `https://player.vimeo.com/video/${key}?title=0&byline=0&portrait=0`;
+      default: return false;
     }
   }
 
@@ -40,6 +41,8 @@ export default class Video extends React.Component {
         src={this.state.src}
         frameBorder="0"
         allowFullScreen
+        // TODO: accept title argument
+        title='Video'
       />
     )
 
