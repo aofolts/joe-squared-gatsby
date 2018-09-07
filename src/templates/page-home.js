@@ -7,6 +7,7 @@ import FeaturedTabs from '../components/FeaturedTabs'
 import Video from '../components/Video'
 import Layout from '../components/Layout'
 import BlogCard from '../components/BlogCard'
+import {Link} from 'gatsby'
 
 import css from '../less/home.module.less'
 
@@ -38,11 +39,13 @@ const MenusSection = props => {
   const {headline,copy,menus} = props
 
   const menuItems = menus.map(menu => {
-    const {id,title} = menu
+    const {id,title,slug} = menu
 
     return (
       <li className={css.menuCard} key={id}>
-        {title}
+        <Link to={slug} className={css.menuCardContent}>
+          {title}
+        </Link>
       </li>
     )
   })

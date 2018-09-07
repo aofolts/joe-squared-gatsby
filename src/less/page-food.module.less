@@ -4,18 +4,22 @@
   .bg(@lgrey);
 }
 
+.grid {
+  .dsp(grid); .gtc(repeat(auto-fill,minmax(35rem,1fr))); .gg(@m @ml);
+}
+
 .card {
-  .ta(center); .bg(white);
+  .dsp(block); .ta(center);
 
   &:hover {
     @cardHover();
   }
 }
 
-.cardTitle {
-  .bg(@prime); .mb(0); .pad(@s); .c(white);
+.cardMedia {
+  .pb(50%);
 }
 
-.cardMedia {
-  .pb(50%); .of(hidden);
+.cardTitle {
+  .bg(@prime); .pad(@s); .c(white);
 }

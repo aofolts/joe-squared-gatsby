@@ -45,8 +45,10 @@ const CategoriesSection = props => {
 
   return (
     <section className={css.archiveSection}>
-      <Wrap width='small'>
-        {itemCards}
+      <Wrap>
+        <ul className={css.grid}>
+          {itemCards}
+        </ul>
       </Wrap>
     </section>
   )
