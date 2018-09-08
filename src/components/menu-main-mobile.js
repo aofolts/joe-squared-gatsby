@@ -1,46 +1,7 @@
 import React,{Component} from 'react'
 import css from '../less/menu-main-mobile.module.less'
 import {withHeaderContext} from './HeaderContext'
-import {Link} from 'gatsby'
-
-const MenuItem = props => {
-  const {
-    id,
-    name,
-    page,
-    externalLink,
-    subMenu
-  } = props
-
-  const url = page ? page.slug : externalLink
-
-  const SubMenuToggle = () => {
-    if (!subMenu) return null
-
-    return (
-      <div className={css.subMenuToggle}/>
-    )
-  }
-  
-  const itemTitle = url
-    ? (
-      <Link className={css.menuItemTitle} to={url}>
-        {name}
-      </Link>
-    ) 
-    : (
-      <div className={css.menuItemTitle}>
-        {name}
-      </div>
-    )
-
-  return (
-    <li key={id} className={css.menuItem}>
-      {itemTitle}
-      <SubMenuToggle/>
-    </li>
-  )
-}
+import MenuItem from './menu-main-item'
 
 class MobileMainMenu extends Component {
 
@@ -54,17 +15,52 @@ class MobileMainMenu extends Component {
 
   render() {
     const {
-      menuItems
+      menuItems,
+      subMenusById,
+      activeSubMenuId
     } = this.props.headerContext
 
     const primaryItems = menuItems.map(item => {
       return <MenuItem key={item.id} {...item}/>
     })
 
+    const PrimaryMenu = () => {
+      const primaryMenuClasses = [
+        css.primaryMenu,
+        activeSubMenuId ? css.inactivePrimaryMenu : null
+      ].join(' ')
+
+      return (
+        <div className={primaryMenuClasses}>
+          {primaryItems}
+        </div>
+      )
+    }
+
+    const subMenus = Object.keys(subMenusById).reduce((arr,key) => {
+      const items = subMenusById[key].map(item => {
+        return <MenuItem key={item.id} {...item}/>
+      })
+
+      const subMenuClasses = [
+        css.subMenu,
+        activeSubMenuId === key ? css.activeSubMenu : null
+      ].join(' ')
+
+      arr.push((
+        <div key={key} className={subMenuClasses}>
+          {items}
+        </div>
+      ))
+
+      return arr
+    },[])
+
     return (
       <div className={css.container}>
         <ul className={css.mainMenu}>
-          {primaryItems}
+          <PrimaryMenu/>
+          {subMenus}
         </ul>
       </div>
     )

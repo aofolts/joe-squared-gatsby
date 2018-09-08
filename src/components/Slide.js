@@ -7,30 +7,31 @@ const Buttons = ({buttons}) => {
   const buttonElements = buttons.map((button,i) => {
     const {
       label,
-      internalLink,
+      pageLink,
       externalLink
     } = button
 
     const buttonClasses = [
+      css.button,
       css[`button${i + 1}`],
       'primaryButton'
     ].join(' ')
 
     const buttonLink = () => {
       if (externalLink) return externalLink
-      if (internalLink) return internalLink.slug
+      if (pageLink) return pageLink.slug
       else return null
     }
 
     return (
-      <Link className={buttonClasses} to={buttonLink()}>
+      <Link key={label} className={buttonClasses} to={buttonLink()}>
         {label}
       </Link>
     )
   })
 
   return (
-    <div className='buttons'>
+    <div className={css.buttons}>
       {buttonElements}
     </div>
   )

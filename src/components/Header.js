@@ -77,6 +77,10 @@ class Header extends React.Component {
     }
   }
 
+  getSubMenuById = id => {
+    return this.subMenusById[id]
+  }
+
   addItemSubMenu(item) {
     if (item.subMenu) {
       this.subMenusById[item.id] = item.subMenu

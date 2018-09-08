@@ -81,10 +81,8 @@ export default class Slider extends React.Component {
         id
       } = slide
 
-      console.log(id)
-
       return (
-        <Slide slide={slide} key={slide.id} slideState={slideState} />
+        <Slide slide={slide} key={id} slideState={slideState} />
       )
     })
   }
