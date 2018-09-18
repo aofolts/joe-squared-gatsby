@@ -1,16 +1,27 @@
 @import 'yetti/style.less';
 @import 'yetti/theme/content.less';
+@import '../../node_modules/yetti/global.less';
 @import 'vars.less';
 @import (reference) 'mixins.less';
 @import (reference) 'header.module.less';
+
+////////////////////////////////////////////////////////
+// COLORS
+////////////////////////////////////////////////////////
+
+
+@lightGrey: #f7f7f7;
 
 ////////////////////////////////////////////////////////
 // HTML
 ////////////////////////////////////////////////////////  
 
 html {
+  // Move to yetti
   overflow-wrap: break-word;
   word-wrap: break-word;
+  
+  .ff('joesquared');
 }
 
 ////////////////////////////////////////////////////////
@@ -20,21 +31,22 @@ html {
 @font-face {
   .ff('joesquared');
   .fw(400);
-  src: url('./../../static/fonts/j2-regular.otf');
+  src: url('../fonts/j2-regular.otf');
 }
 
 @font-face {
   .ff('joesquared');
   .fw(500);
-  src: url('./../../static/fonts/j2-medium.otf');
+  src: url('../fonts/j2-medium.otf');
 }
 
 @font-face {
   .ff('joesquared');
   .fw(700);
-  src: url('./../../static/fonts/j2-bold.otf');
+  src: url('../fonts/j2-bold.otf');
 }
 
+@heavy: 700;
 
 ////////////////////////////////////////////////////////
 // BUTTONS (btn)
@@ -67,7 +79,7 @@ h1,h2,h3,h4,h5 {
 
 h1 {
   .ttf(uppercase);
-  .fw(bolder);
+  .fw(@heavy);
 }
 
 h2 {

@@ -1,7 +1,7 @@
 import {graphql} from 'gatsby'
 import React from 'react'
 import Wrap from '../components/Wrap'
-import Layout from '../components/Layout'
+import Layout from '../components/layout'
 import Hero from '../components/Hero'
 import css from '../less/archive-foodCategory.module.less'
 import {Link} from 'gatsby'
@@ -194,8 +194,12 @@ class FoodCategoryTemplate extends React.Component {
       return item.node
     })
 
+    const seo = {
+      description: category.description 
+    }
+
     return (
-      <Layout {...this.props}>
+      <Layout title={category.name} seo={seo}>
         <Hero title={name} background={featuredImage} />
         <Intro 
           category={category} 

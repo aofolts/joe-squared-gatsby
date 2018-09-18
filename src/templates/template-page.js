@@ -1,7 +1,7 @@
 import {graphql} from 'gatsby'
-import React from 'react'
+import React, { Fragment } from 'react'
 import Wrap from '../components/Wrap'
-import Layout from '../components/Layout'
+import { withLayout } from '../components/layout'
 import Hero from '../components/Hero'
 import GalleryContent from '../components/GalleryContent'
 
@@ -45,15 +45,15 @@ class PageTemplate extends React.Component {
     } = contentfulPage
 
     return (
-      <Layout {...this.props}>
+      <Fragment>
         <Hero title={title} background={featuredImage} />
         <LayoutContent layout={layout[0]}/>
-      </Layout>
+      </Fragment>
     )
   }
 }
 
-export default PageTemplate
+export default withLayout(PageTemplate)
 
 export const pageQuery = graphql`
   query PageBySlug($slug: String!) {
@@ -85,6 +85,12 @@ export const pageFields = graphql`
       title
       sizes(maxWidth: 1920) {
         ...GatsbyContentfulSizes
+      }
+    }
+    seo {
+      title
+      description {
+        description
       }
     }
   }

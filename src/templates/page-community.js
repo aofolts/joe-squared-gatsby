@@ -1,7 +1,7 @@
 import {graphql} from 'gatsby'
-import React from 'react'
+import React, { Fragment } from 'react'
 import Wrap from '../components/Wrap'
-import Layout from '../components/Layout'
+import { withLayout } from '../components/layout'
 import Hero from '../components/Hero'
 import css from '../less/archive-blog.module.less'
 import Image from 'gatsby-image'
@@ -83,16 +83,16 @@ class CommunityPageTemplate extends React.Component {
     } = contentfulPage
 
     return (
-      <Layout {...this.props}>
+      <Fragment>
         <Hero title={title} background={featuredImage} />
         <BasicContent layout={layout}/>
         <ArchiveSection posts={posts}/>
-      </Layout>
+      </Fragment>
     )
   }
 }
 
-export default CommunityPageTemplate
+export default withLayout(CommunityPageTemplate)
 
 export const pageQuery = graphql`
   {

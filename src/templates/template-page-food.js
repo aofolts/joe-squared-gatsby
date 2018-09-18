@@ -1,7 +1,7 @@
 import {graphql} from 'gatsby'
-import React from 'react'
+import React,{Fragment} from 'react'
 import Wrap from '../components/Wrap'
-import Layout from '../components/Layout'
+import {withLayout} from '../components/layout'
 import Hero from '../components/Hero'
 import css from '../less/page-food.module.less'
 import Image from 'gatsby-image'
@@ -73,16 +73,16 @@ class PageTemplate extends React.Component {
     } = contentfulPage
 
     return (
-      <Layout {...this.props}>
+      <Fragment {...this.props}>
         <Hero title={title} background={featuredImage} />
         <BasicContent layout={layout}/>
         <CategoriesSection items={foodCategories}/>
-      </Layout>
+      </Fragment>
     )
   }
 }
 
-export default PageTemplate
+export default withLayout(PageTemplate)
 
 export const pageQuery = graphql`
   query foodPageQuery($slug: String!) {

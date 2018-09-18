@@ -5,7 +5,7 @@
 }
 
 .grid {
-  .dsp(grid); .gtc(repeat(auto-fill,minmax(35rem,1fr))); .gg(@m @ml);
+  .dsp(grid); .gtc(repeat(auto-fill,minmax(35rem,1fr))); .gg(@m);
 }
 
 .card {
@@ -13,6 +13,10 @@
 
   &:hover {
     @cardHover();
+  }
+
+  @supports not (display: grid) {
+    .ib; .w(35rem); .mw; .mar(@xs);
   }
 }
 

@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import Content from '../components/Content'
 import Wrap from '../components/Wrap'
 import Section from '../components/Section'
 import Slider from '../components/Slider'
 import FeaturedTabs from '../components/FeaturedTabs'
 import Video from '../components/Video'
-import Layout from '../components/Layout'
 import BlogCard from '../components/BlogCard'
 import {Link} from 'gatsby'
-
+import {Helmet} from 'react-helmet'
 import css from '../less/home.module.less'
+import { withLayout } from '../components/layout';
 
 const IntroSection = props => {
   const {headline,copy,tabs} = props
@@ -80,11 +80,8 @@ const BlogSection = props => {
 
   return (
     <Section name='community' className={css.communitySection}>
-      {/* <Wrap width='small'>
-        <h2>{fields.headline}</h2>
-        <div className='copy' dangerouslySetInnerHTML={{__html: fields.copy}}></div>
-      </Wrap> */}
       <Wrap>
+        <h2 className={css.communityHeadline}>Recent Articles</h2>
         <div className={[css.communityGrid,css.thirdsGrid].join(' ')}>
           {postCards}
         </div>
@@ -121,18 +118,21 @@ class Index extends Component {
     } = layout[0]
 
     return (
-      <Layout {...contentfulPage}>
+      <Fragment>
+        <Helmet>
+          <title>Joe Squared | Pizza, Drinks, Music | Baltimore, Maryland</title>
+        </Helmet>
         <Slider slides={heroSlides}/>
         <IntroSection {...intro} tabs={quickLinks}/>
         <VideoSection {...video}/>
         <MenusSection {...menusCopy} menus={featuredMenus}/>
         <BlogSection posts={blogPosts}/>
-      </Layout>
+      </Fragment>
     )
   }
 }
 
-export default Index;
+export default withLayout(Index)
 
 export const pageQuery = graphql`
   {
